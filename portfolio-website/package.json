@@ -2,7 +2,7 @@
   "name": "portfolio-website",
   "version": "0.0.0",
   "private": true,
-  "homepage": "https://ABHISHEKSOUNDALGEKAR.github.io/portfolio-website",
+  "homepage": "https://ABHISHEKSOUNDALGEKAR.github.io/Portfolio",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
