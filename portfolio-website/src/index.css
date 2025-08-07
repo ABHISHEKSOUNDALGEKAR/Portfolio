@@ -1,0 +1,9 @@
+/* default light theme */
+body {
+  @apply font-sans bg-white text-gray-900;
+}
+
+/* dark theme overrides */
+.dark body {
+  @apply bg-gray-900 text-gray-100;
+}
