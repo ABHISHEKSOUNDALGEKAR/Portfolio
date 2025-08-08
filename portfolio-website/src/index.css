@@ -1,4 +1,9 @@
 /* default light theme */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* then your custom body styles… */
+
 body {
   @apply font-sans bg-white text-gray-900;
 }
