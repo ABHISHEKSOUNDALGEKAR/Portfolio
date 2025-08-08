@@ -27,10 +27,13 @@ function App() {
       </button>
 
       <Hero />
+      <About />
       <Education />
       <Experience />
       <Projects />
       <Publication />
+      <Contact />     {/* ← make sure this is in place */}
+      <Footer />
     </div>
   );
 }
