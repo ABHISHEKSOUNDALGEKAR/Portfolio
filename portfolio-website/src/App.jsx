@@ -9,8 +9,6 @@ import Contact from './components/Contact';
 
 function App() {
   const [dark, setDark] = useState(false);
-
-  // Add or remove the 'dark' class on the root html element
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark);
   }, [dark]);
