@@ -29,9 +29,9 @@ const Hero = () => (
       <a href="https://linkedin.com/in/abhishekmsoundalgekar" target="_blank" className="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition">
         LinkedIn
       </a>
-      <a href="/assets/resume.pdf" target="_blank" className="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition">
-        Resume
-      </a>
+       <a href={`${import.meta.env.BASE_URL}assets/resume.pdf`} target="_blank" rel="noopener noreferrer" className="px-4 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-600 hover:text-white transition">
+   Resume
+ </a>
     </motion.div>
   </section>
 );

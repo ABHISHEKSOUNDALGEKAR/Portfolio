@@ -9,13 +9,13 @@ const Experience = () => {
     { title: 'Research Intern — University of Limerick', period: 'Jun 2022 – Nov 2022', link: 'https://www.ul.ie', items: ['Developed ML models for research prediction', 'Used regression & heat maps for feature accuracy', 'Deployed Flask API for non-tech users'] }
   ];
   return (
-    <section className="py-16 px-6 bg-gray-50 text-center" id="experience">
+      <section className="py-16 px-6 bg-gray-50 dark:bg-gray-800 text-center" id="experience">
       <motion.h2 className="text-3xl font-bold mb-10 text-gray-800" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
         Experience
       </motion.h2>
       <div className="max-w-4xl mx-auto space-y-10">
         {jobs.map((job, i) => (
-          <motion.div key={i} className="text-left bg-white p-6 rounded-lg shadow hover:shadow-lg transition" initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div key={i} className="text-left bg-white dark:bg-gray-700 p-6 rounded-lg shadow hover:shadow-lg" initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <h3 className="text-xl font-semibold">{job.title} <span className="text-sm text-gray-500 block">{job.period}</span></h3>
             <a href={job.link} target="_blank" rel="noopener noreferrer" className="inline-block text-blue-600 hover:underline text-sm mt-1">🌐 Company Website</a>
             <ul className="list-disc ml-5 mt-2 text-sm text-gray-700 space-y-1">
