@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/", "destination": "/form.html", "permanent": false }
+  ]
+}
