@@ -53,14 +53,24 @@ export default function App() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Active section highlighting
+  // Active section highlighting — track cumulative visibility per section (the
+  // observer only reports entries whose state *changed*, not the full set),
+  // then pick a single winner: the lowest section still in the "active band".
   useEffect(() => {
     const sections = NAV_ITEMS.map((n) => document.getElementById(n.id)).filter(Boolean);
+    const visible = new Map();
+
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
+          visible.set(entry.target.id, entry.isIntersecting);
         });
+        const stillActive = NAV_ITEMS.map((n) => n.id).filter((id) => visible.get(id));
+        if (stillActive.length > 0) {
+          setActive(stillActive[stillActive.length - 1]);
+        } else {
+          setActive("");
+        }
       },
       { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
     );
