@@ -1,14 +1,78 @@
-/* default light theme */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* then your custom body styles… */
 
-body {
-  @apply font-sans bg-white text-gray-900;
+html {
+  scroll-behavior: smooth;
 }
 
-/* dark theme overrides */
+body {
+  @apply font-sans bg-white text-gray-900 antialiased;
+}
+
 .dark body {
-  @apply bg-gray-900 text-gray-100;
+  @apply bg-ink-950 text-gray-100;
+}
+
+::selection {
+  @apply bg-accent-500/40 text-white;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-ink-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400 dark:bg-accent-600;
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/70 dark:bg-ink-800/50 backdrop-blur-xl border border-black/5 dark:border-white/10;
+  }
+
+  .card {
+    @apply glass rounded-2xl transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:border-accent-500/40 hover:shadow-glow hover:-translate-y-1;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-500 via-indigo-400 to-cyan-400;
+  }
+
+  .section-heading {
+    @apply font-display text-3xl md:text-4xl font-bold tracking-tight text-center text-gray-900 dark:text-white;
+  }
+
+  .section-eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-accent-600 dark:text-accent-400 text-center block mb-3;
+  }
+
+  .chip {
+    @apply px-3 py-1.5 rounded-full border border-black/10 dark:border-white/10 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 bg-white/60 dark:bg-white/5 hover:border-accent-500/50 hover:text-accent-600 dark:hover:text-accent-400 transition-colors;
+  }
+
+  .btn-primary {
+    @apply px-5 py-2.5 rounded-xl bg-gradient-to-r from-accent-600 to-indigo-500 text-white font-semibold text-sm shadow-glow hover:brightness-110 active:scale-95 transition-all duration-200;
+  }
+
+  .btn-outline {
+    @apply px-5 py-2.5 rounded-xl border border-black/10 dark:border-white/15 text-gray-800 dark:text-gray-100 font-semibold text-sm hover:border-accent-500/60 hover:text-accent-600 dark:hover:text-accent-400 active:scale-95 transition-all duration-200;
+  }
+}
+
+/* Utility: subtle grid backdrop used behind sections */
+.bg-grid {
+  background-image: linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
 }

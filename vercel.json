@@ -1,0 +1,9 @@
+{
+  "buildCommand": "cd portfolio-website && npm install && npm run build",
+  "outputDirectory": "portfolio-website/dist",
+  "installCommand": "echo skip-root-install",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
