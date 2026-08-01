@@ -38,7 +38,7 @@ const Hero = () => (
     </motion.span>
 
     <motion.h1
-      className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-gray-900 dark:text-white"
+      className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 dark:text-white px-2"
       initial={{ opacity: 0, y: -30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.1 }}
@@ -47,7 +47,7 @@ const Hero = () => (
     </motion.h1>
 
     <motion.div
-      className="mt-5 h-8 text-lg md:text-2xl font-mono text-gray-600 dark:text-gray-300"
+      className="mt-5 min-h-[2rem] sm:min-h-[2.5rem] px-4 text-xs sm:text-lg md:text-2xl font-mono text-gray-600 dark:text-gray-300 text-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5, duration: 0.8 }}

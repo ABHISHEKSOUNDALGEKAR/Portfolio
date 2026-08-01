@@ -72,7 +72,7 @@ export default function App() {
   const handleNavClick = () => setMenuOpen(false);
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 dark:bg-ink-950 dark:text-gray-100 selection:bg-accent-500/30">
+    <div className="min-h-screen w-full overflow-x-hidden bg-white text-gray-900 dark:bg-ink-950 dark:text-gray-100 selection:bg-accent-500/30">
       {/* Scroll progress bar */}
       <div className="fixed top-0 left-0 right-0 h-[3px] z-50 bg-transparent">
         <div
@@ -107,14 +107,14 @@ export default function App() {
             <button
               aria-label="Toggle theme"
               onClick={() => setDark((v) => !v)}
-              className="w-9 h-9 flex items-center justify-center rounded-xl border border-black/10 dark:border-white/10 hover:border-accent-500/50 text-gray-700 dark:text-gray-200 transition-colors"
+              className="w-10 h-10 flex items-center justify-center rounded-xl border border-black/10 dark:border-white/10 hover:border-accent-500/50 text-gray-700 dark:text-gray-200 transition-colors active:scale-95"
             >
               {dark ? <FiSun size={16} /> : <FiMoon size={16} />}
             </button>
             <button
               aria-label="Toggle menu"
               onClick={() => setMenuOpen((v) => !v)}
-              className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl border border-black/10 dark:border-white/10 text-gray-700 dark:text-gray-200"
+              className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl border border-black/10 dark:border-white/10 text-gray-700 dark:text-gray-200 active:scale-95"
             >
               {menuOpen ? <FiX size={18} /> : <FiMenu size={18} />}
             </button>

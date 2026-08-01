@@ -57,9 +57,10 @@ function WireframeShape({ position, geometry: Geo, scale = 1, color, speed = 1 }
 }
 
 function Scene() {
+  const isSmallScreen = typeof window !== "undefined" && window.innerWidth < 640;
   return (
     <>
-      <ParticleField />
+      <ParticleField count={isSmallScreen ? 400 : 900} />
       <WireframeShape
         position={[3.2, 1, -2]}
         geometry={() => <icosahedronGeometry args={[1.15, 0]} />}
@@ -83,12 +84,20 @@ function Scene() {
 }
 
 export default function HeroScene() {
+  // Respect reduced-motion preference and skip the 3D scene entirely —
+  // the CSS gradient/grid backdrop in Hero.jsx still provides visual interest.
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion) return null;
+
   return (
     <div className="absolute inset-0 -z-10" aria-hidden="true">
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 6], fov: 55 }}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
       >
         <Suspense fallback={null}>
           <Scene />

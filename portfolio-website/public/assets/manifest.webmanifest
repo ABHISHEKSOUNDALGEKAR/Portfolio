@@ -1,0 +1,17 @@
+{
+  "name": "Abhishek Soundalgekar — Portfolio",
+  "short_name": "Abhishek",
+  "description": "Software Engineer — SWE Intern @ HPE Aruba, SDE Intern @ USC ATRI, MS CS @ USC",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#0a0e1a",
+  "icons": [
+    {
+      "src": "/assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
