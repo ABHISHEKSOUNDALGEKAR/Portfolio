@@ -87,7 +87,7 @@ const Hero = () => (
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.8 }}
       >
-        I build software that solves real problems — from a UPI payment switch
+        I build software that solves real problems - from a UPI payment switch
         simulator to production ML classifiers running on Aruba network
         hardware.
       </motion.p>
