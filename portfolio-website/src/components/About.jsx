@@ -36,22 +36,25 @@ const About = () => (
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
       >
+        <p className="text-lg text-gray-900 dark:text-white font-medium">
+          I build software that solves real problems.
+        </p>
         <p>
           I'm a Master's student in Computer Science at the{" "}
           <span className="text-gray-900 dark:text-white font-semibold">
             University of Southern California
           </span>
-          , currently building an ML-powered network traffic classifier as a{" "}
+          , currently working as a{" "}
           <span className="text-gray-900 dark:text-white font-semibold">
-            Software Engineer Intern at Hewlett Packard Enterprise (Aruba)
+            Software Engineering Intern at Hewlett Packard Enterprise (Aruba)
           </span>
-          . I previously shipped full-stack clinical research tooling as an SDE
-          Intern at{" "}
+          , building an ML-powered network traffic classifier. I previously
+          served as a Software Developer Intern at{" "}
           <span className="text-gray-900 dark:text-white font-semibold">
-            USC's Alzheimer's Therapeutic Research Institute
+            USC's Alzheimer's Therapeutic Research Institute (ATRI)
           </span>
-          , and I currently automate infrastructure workflows as a Software
-          Developer with USC IT Systems.
+          , and I continue to work as a Software Developer with USC IT
+          Systems, automating infrastructure workflows.
         </p>
         <p>
           My background spans secure backend systems, financial simulators, and
@@ -64,14 +67,19 @@ const About = () => (
           <span className="text-gray-900 dark:text-white font-semibold">
             AlgoAnalytics
           </span>
-          , I built sentiment-analysis pipelines over large-scale financial news
-          datasets.
+          , I conducted large-scale stock market sentiment analysis using
+          supervised ML models over 50k+ financial news articles.
         </p>
         <p>
-          I care about operating systems, backend engineering, AI/ML
+          I'm passionate about operating systems, backend engineering, AI/ML
           applications, and scalable system design — and I'm always looking to
-          learn, build, and ship things that hold up under real load.
+          learn, build, and improve.
         </p>
+
+        <div className="!mt-6 inline-flex items-center gap-2 rounded-full border border-accent-500/30 bg-accent-500/10 px-4 py-2 text-sm font-medium text-accent-600 dark:text-accent-400">
+          📌 Actively seeking Fall 2026 Co-op/Internship opportunities, and
+          Full-Time roles starting January 2027.
+        </div>
       </motion.div>
 
       <motion.div

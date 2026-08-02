@@ -111,7 +111,7 @@ export default function App() {
       <header className="sticky top-0 z-40 glass">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
           <a href="#home" className="font-display font-bold tracking-tight text-lg">
-            Abhishek<span className="text-accent-500">.</span>dev
+            Abhishek Soundalgekar
           </a>
 
           <nav className="hidden md:flex items-center gap-1 text-sm">

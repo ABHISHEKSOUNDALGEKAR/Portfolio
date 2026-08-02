@@ -24,7 +24,7 @@ const FAQ = [
     id: "availability",
     q: "Is he open to opportunities?",
     keywords: ["available", "opportunit", "hiring", "internship", "open to", "looking for"],
-    a: "Yes — actively seeking Fall 2026 co-op/internship opportunities in software engineering. Feel free to reach out!",
+    a: "Yes — actively seeking Fall 2026 co-op/internship opportunities, as well as full-time software engineering roles starting January 2027. Feel free to reach out!",
   },
   {
     id: "education",
@@ -42,7 +42,7 @@ const FAQ = [
     id: "contact",
     q: "How can I contact him?",
     keywords: ["contact", "email", "reach", "phone", "linkedin", "message"],
-    a: "Best via email at soundalg@usc.edu, or connect on LinkedIn — both linked in the Contact section below.",
+    a: "Best via email at abhimsound@gmail.com, or connect on LinkedIn — both linked in the Contact section below.",
   },
 ];
 
@@ -114,10 +114,10 @@ export default function ChatWidget() {
                   {m.text}
                   {m.fallback && (
                     <a
-                      href="mailto:soundalg@usc.edu"
+                      href="mailto:abhimsound@gmail.com"
                       className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-accent-600 dark:text-accent-400 hover:underline"
                     >
-                      <FiMail size={12} /> Email soundalg@usc.edu
+                      <FiMail size={12} /> Email abhimsound@gmail.com
                     </a>
                   )}
                 </div>

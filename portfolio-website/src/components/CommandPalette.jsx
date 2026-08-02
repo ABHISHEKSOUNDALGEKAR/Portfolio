@@ -48,8 +48,8 @@ export default function CommandPalette({ open, onClose, dark, setDark }) {
         id: "email",
         label: "Email Abhishek",
         icon: FiMail,
-        keywords: "contact mail soundalg@usc.edu",
-        action: () => (window.location.href = "mailto:soundalg@usc.edu"),
+        keywords: "contact mail abhimsound@gmail.com",
+        action: () => (window.location.href = "mailto:abhimsound@gmail.com"),
       },
       {
         id: "github",

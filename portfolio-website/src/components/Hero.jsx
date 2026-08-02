@@ -1,23 +1,23 @@
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
-import { SiLeetcode } from "react-icons/si";
+import { SiGithub, SiLeetcode, SiGmail } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa";
 
 // three.js is heavy — load the 3D scene lazily so the initial bundle stays lean.
 const HeroScene = lazy(() => import("./three/HeroScene"));
 
 const links = [
-  { label: "GitHub", href: "https://github.com/ABHISHEKSOUNDALGEKAR", icon: FiGithub },
-  { label: "LinkedIn", href: "https://linkedin.com/in/abhishekmsoundalgekar", icon: FiLinkedin },
-  { label: "LeetCode", href: "https://leetcode.com/u/abhishek_soundalgekar", icon: SiLeetcode },
-  { label: "Email", href: "mailto:soundalg@usc.edu", icon: FiMail },
+  { label: "GitHub", href: "https://github.com/ABHISHEKSOUNDALGEKAR", icon: SiGithub, color: "#f5f5f5" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/abhishekmsoundalgekar", icon: FaLinkedin, color: "#0A66C2" },
+  { label: "LeetCode", href: "https://leetcode.com/u/abhishek_soundalgekar", icon: SiLeetcode, color: "#FFA116" },
+  { label: "Email", href: "mailto:abhimsound@gmail.com", icon: SiGmail, color: "#EA4335" },
 ];
 
 const roles = [
   "Software Engineer",
   "Backend & ML Systems",
   "USC Grad Student",
-  "Open to Fall '26",
+  "Fall '26 Co-op · FT Jan '27",
 ];
 
 const Hero = () => (
@@ -61,7 +61,7 @@ const Hero = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
       >
-        Los Angeles, CA · Open to Summer / Fall 2026 opportunities
+        Los Angeles, CA · Fall 2026 Co-op/Internship & Full-Time from Jan 2027
       </motion.p>
 
       <motion.h1
@@ -133,16 +133,16 @@ const Hero = () => (
         animate={{ opacity: 1 }}
         transition={{ delay: 0.85, duration: 0.8 }}
       >
-        {links.map(({ label, href, icon: Icon }) => (
+        {links.map(({ label, href, icon: Icon, color }) => (
           <a
             key={label}
             href={href}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={label}
-            className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 text-gray-300 hover:text-accent-400 hover:border-accent-500/50 hover:-translate-y-0.5 transition-all"
+            className="w-12 h-12 flex items-center justify-center rounded-full border border-white/15 hover:border-accent-500/50 hover:-translate-y-0.5 hover:scale-110 transition-all"
           >
-            <Icon size={17} />
+            <Icon size={22} color={color} />
           </a>
         ))}
       </motion.div>

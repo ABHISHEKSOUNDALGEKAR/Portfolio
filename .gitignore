@@ -5,3 +5,5 @@ dist
 dist-ssr
 *.local
 .vercel
+.env
+.env.local
