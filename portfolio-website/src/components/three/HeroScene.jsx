@@ -43,7 +43,7 @@ function StarLayer({ count, size, color, speed, phase = 0 }) {
           transparent
           color={color}
           size={size}
-          sizeAttenuation
+          sizeAttenuation={false}
           depthWrite={false}
           opacity={0.7}
           blending={THREE.AdditiveBlending}
@@ -92,8 +92,8 @@ function Scene() {
   const base = isSmallScreen ? 500 : 1100;
   return (
     <>
-      <StarLayer count={base} size={0.045} color="#c7d2fe" speed={0.5} phase={0} />
-      <StarLayer count={Math.round(base * 0.4)} size={0.08} color="#a5b4fc" speed={0.35} phase={2} />
+      <StarLayer count={base} size={1.6} color="#c7d2fe" speed={0.5} phase={0} />
+      <StarLayer count={Math.round(base * 0.4)} size={2.6} color="#a5b4fc" speed={0.35} phase={2} />
       <ShootingStar />
     </>
   );
@@ -109,7 +109,7 @@ export default function HeroScene() {
   if (prefersReducedMotion) return null;
 
   return (
-    <div className="absolute inset-0 -z-10" aria-hidden="true">
+    <div className="absolute inset-0" style={{ zIndex: -20 }} aria-hidden="true">
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 6], fov: 55 }}
