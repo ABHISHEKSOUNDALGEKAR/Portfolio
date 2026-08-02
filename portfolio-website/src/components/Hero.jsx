@@ -1,10 +1,6 @@
-import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { SiGithub, SiLeetcode, SiGmail } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
-
-// three.js is heavy — load the 3D scene lazily so the initial bundle stays lean.
-const HeroScene = lazy(() => import("./three/HeroScene"));
 
 const links = [
   { label: "GitHub", href: "https://github.com/ABHISHEKSOUNDALGEKAR", icon: SiGithub, color: "#f5f5f5" },
@@ -88,13 +84,14 @@ const TerminalCard = () => (
 const Hero = () => (
   <section
     id="home"
-    className="relative isolate w-full min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-16 overflow-hidden bg-ink-950 text-white"
+    className="relative isolate w-full min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-16 overflow-hidden bg-ink-950 dark:bg-transparent text-white"
   >
-    {/* 3D animated starfield background (lazy-loaded) */}
-    <Suspense fallback={null}>
-      <HeroScene />
-    </Suspense>
-    <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-ink-950/40 via-ink-950/10 to-ink-950" />
+    {/* The starfield itself now lives in the global, viewport-fixed
+        <CosmicBackground /> (mounted in App.jsx) so it stays visible behind
+        every section as the page scrolls, not just here. This section stays
+        solid navy as a fallback in light mode (where CosmicBackground is
+        hidden) so the always-white hero text stays legible. */}
+    <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-ink-950/40 via-ink-950/10 to-ink-950 dark:from-black/25 dark:via-transparent dark:to-ink-950" />
 
     {/* Top-left brand mark */}
     <motion.div

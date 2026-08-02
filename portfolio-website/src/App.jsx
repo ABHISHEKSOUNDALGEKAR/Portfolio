@@ -13,6 +13,7 @@ import CustomCursor from "./components/CustomCursor";
 import CommandPalette from "./components/CommandPalette";
 import ChatWidget from "./components/ChatWidget";
 import AmbientMusic from "./components/AmbientMusic";
+import CosmicBackground from "./components/CosmicBackground";
 
 const NAV_ITEMS = [
   { id: "about", label: "About" },
@@ -99,7 +100,11 @@ export default function App() {
   const handleNavClick = () => setMenuOpen(false);
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-white text-gray-900 dark:bg-ink-950 dark:text-gray-100 selection:bg-accent-500/30">
+    <div className="min-h-screen w-full overflow-x-hidden isolate bg-white text-gray-900 dark:text-gray-100 selection:bg-accent-500/30">
+      {/* Fixed, viewport-pinned starfield (dark mode only) — sits behind every
+          section as the page scrolls instead of living inside just the Hero */}
+      <CosmicBackground />
+
       {/* Scroll progress bar */}
       <div className="fixed top-0 left-0 right-0 h-[3px] z-50 bg-transparent">
         <div

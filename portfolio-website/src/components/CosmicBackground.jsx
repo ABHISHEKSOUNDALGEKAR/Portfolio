@@ -1,16 +1,14 @@
 import { useEffect, useMemo, useRef } from "react";
 
-// A pure DOM + CSS "universe" backdrop — no canvas, no WebGL, no
-// requestAnimationFrame loop. Everything here is a normal DOM/SVG element
-// with a CSS animation, so it's rendered by the browser's regular layout
-// and paint pipeline the same way any other element on the page is —
-// no separate rendering context that can silently fail to composite.
+// A pure DOM + CSS "universe" backdrop, pinned to the viewport (position:
+// fixed) so it stays behind every section as the page scrolls, instead of
+// living inside the Hero section and scrolling away with it. Dark-mode
+// only — see index.css, sections turn translucent under `.dark` so this
+// shows through; in light mode it's hidden entirely via CSS.
 //
-// (Earlier attempts used react-three-fiber and later a Canvas2D scene;
-// both looked correct in every diagnostic — canvas sized correctly, pixels
-// confirmed drawn via getImageData — yet still didn't reliably show up.
-// Removing the canvas/WebGL layer entirely removes that whole class of
-// failure.)
+// No canvas/WebGL, no requestAnimationFrame loop — everything here is a
+// normal DOM/SVG element with a CSS animation, painted by the browser's
+// regular layout pipeline like any other element on the page.
 
 function useStarField(count) {
   return useMemo(() => {
@@ -46,12 +44,12 @@ function useStarField(count) {
   }, [count]);
 }
 
-export default function HeroScene() {
-  const { stars, lines } = useStarField(100);
+export default function CosmicBackground() {
+  const { stars, lines } = useStarField(110);
   const shootingStars = useMemo(
     () =>
       [0, 1, 2].map((i) => ({
-        top: 8 + Math.random() * 30,
+        top: 6 + Math.random() * 35,
         left: 4 + Math.random() * 45,
         delay: i * 4.5 + Math.random() * 3,
         duration: 8 + Math.random() * 6,
@@ -68,9 +66,8 @@ export default function HeroScene() {
     if (!fine) return;
 
     const onMove = (e) => {
-      const rect = layer.parentElement.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5;
-      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      const px = e.clientX / window.innerWidth - 0.5;
+      const py = e.clientY / window.innerHeight - 0.5;
       layer.style.transform = `translate(${px * -10}px, ${py * -8}px)`;
     };
     window.addEventListener("mousemove", onMove);
@@ -78,7 +75,11 @@ export default function HeroScene() {
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden" style={{ zIndex: -20 }} aria-hidden="true">
+    <div
+      className="hidden dark:block fixed inset-0 overflow-hidden bg-ink-950"
+      style={{ zIndex: -1 }}
+      aria-hidden="true"
+    >
       <div className="hero-nebula hero-nebula-a" />
       <div className="hero-nebula hero-nebula-b" />
       <div className="hero-nebula hero-nebula-c" />
