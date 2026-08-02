@@ -20,6 +20,71 @@ const roles = [
   "Fall '26 Co-op · FT Jan '27",
 ];
 
+// Terminal lines for the right-side visual (desktop only)
+const TERMINAL_LINES = [
+  { prompt: true, text: "whoami" },
+  { out: "Software Engineer · MS CS @ USC" },
+  { prompt: true, text: "cat current_role.txt" },
+  { out: "SWE Intern @ HPE Aruba — ML traffic classifier" },
+  { prompt: true, text: "ls skills/" },
+  { out: "python  c++  react  django  docker  aws  pytorch" },
+  { prompt: true, text: "grep -i status availability.log" },
+  { out: "[OPEN] Fall '26 co-op · Full-time from Jan '27", highlight: true },
+];
+
+const TerminalCard = () => (
+  <motion.div
+    className="hidden lg:block w-full max-w-md rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md shadow-2xl overflow-hidden"
+    initial={{ opacity: 0, y: 24 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.6, duration: 0.8 }}
+  >
+    {/* Title bar */}
+    <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
+      <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+      <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+      <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+      <span className="ml-3 text-[11px] font-mono text-gray-500 tracking-wide">
+        abhishek@usc — zsh
+      </span>
+    </div>
+
+    {/* Body */}
+    <div className="px-5 py-4 font-mono text-[13px] leading-relaxed space-y-1">
+      {TERMINAL_LINES.map((line, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 + i * 0.35, duration: 0.3 }}
+        >
+          {line.prompt ? (
+            <p className="text-gray-300">
+              <span className="text-emerald-400">➜</span>{" "}
+              <span className="text-cyan-400">~</span>{" "}
+              <span className="text-gray-100">{line.text}</span>
+            </p>
+          ) : (
+            <p className={line.highlight ? "text-accent-400" : "text-gray-400"}>
+              {line.out}
+            </p>
+          )}
+        </motion.div>
+      ))}
+      <motion.p
+        className="text-gray-300"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 + TERMINAL_LINES.length * 0.35, duration: 0.3 }}
+      >
+        <span className="text-emerald-400">➜</span>{" "}
+        <span className="text-cyan-400">~</span>{" "}
+        <span className="inline-block w-2 h-4 bg-gray-200 align-middle animate-pulse" />
+      </motion.p>
+    </div>
+  </motion.div>
+);
+
 const Hero = () => (
   <section
     id="home"
@@ -54,6 +119,7 @@ const Hero = () => (
       PORTFOLIO — 2026
     </motion.span>
 
+    <div className="max-w-7xl w-full mx-auto grid lg:grid-cols-[minmax(0,1fr)_auto] items-center gap-10">
     <div className="max-w-4xl">
       <motion.p
         className="font-mono text-xs sm:text-sm tracking-[0.2em] text-accent-400 uppercase mb-4"
@@ -146,6 +212,9 @@ const Hero = () => (
           </a>
         ))}
       </motion.div>
+    </div>
+
+    <TerminalCard />
     </div>
 
     {/* Bottom-center: section watermark + scroll prompt (kept away from the

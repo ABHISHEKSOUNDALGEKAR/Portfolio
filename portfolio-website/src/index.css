@@ -6,6 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Keep anchored sections from hiding under the sticky header */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
 body {
   @apply font-sans bg-white text-gray-900 antialiased;
 }
