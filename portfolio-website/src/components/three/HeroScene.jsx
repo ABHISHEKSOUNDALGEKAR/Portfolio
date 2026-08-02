@@ -1,90 +1,54 @@
 import { Suspense, useMemo, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
-// Custom shader so each star twinkles independently (plain PointMaterial can't
-// vary brightness per-point) — cheap: one draw call for the whole field.
-const starVertexShader = `
-  attribute float aSize;
-  attribute float aPhase;
-  varying float vTwinkle;
-  uniform float uTime;
-  void main() {
-    vTwinkle = 0.55 + 0.45 * sin(uTime * (0.6 + aPhase * 0.4) + aPhase * 6.2831);
-    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-    gl_PointSize = aSize * (300.0 / -mvPosition.z);
-    gl_Position = projectionMatrix * mvPosition;
+function makeStarPositions(count) {
+  const arr = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    const r = 4 + Math.random() * 14;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    arr[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+    arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.7;
+    arr[i * 3 + 2] = r * Math.cos(phi) - 6;
   }
-`;
+  return arr;
+}
 
-const starFragmentShader = `
-  varying float vTwinkle;
-  uniform vec3 uColor;
-  void main() {
-    vec2 uv = gl_PointCoord - 0.5;
-    float d = length(uv);
-    float alpha = smoothstep(0.5, 0.0, d) * vTwinkle;
-    gl_FragColor = vec4(uColor, alpha);
-  }
-`;
-
-function Starfield({ count = 1600 }) {
-  const points = useRef(null);
+// Two layers with different sizes/phases fading in and out of sync give a
+// convincing twinkle without needing a custom per-vertex shader.
+function StarLayer({ count, size, color, speed, phase = 0 }) {
+  const material = useRef(null);
   const group = useRef(null);
-  const { mouse } = useThree();
-
-  const [positions, sizes, phases] = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    const size = new Float32Array(count);
-    const phase = new Float32Array(count);
-    for (let i = 0; i < count; i++) {
-      const r = 4 + Math.random() * 14;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.7;
-      pos[i * 3 + 2] = r * Math.cos(phi) - 6;
-      size[i] = Math.random() * 1.6 + 0.4;
-      phase[i] = Math.random();
-    }
-    return [pos, size, phase];
-  }, [count]);
-
-  const uniforms = useMemo(
-    () => ({
-      uTime: { value: 0 },
-      uColor: { value: new THREE.Color("#c7d2fe") },
-    }),
-    []
-  );
+  const positions = useMemo(() => makeStarPositions(count), [count]);
+  const { pointer } = useThree();
 
   useFrame((state, delta) => {
-    uniforms.uTime.value = state.clock.elapsedTime;
+    if (material.current) {
+      material.current.opacity =
+        0.45 + 0.4 * Math.sin(state.clock.elapsedTime * speed + phase);
+    }
     if (group.current) {
-      // Gentle parallax toward the cursor + slow ambient drift.
       group.current.rotation.y += delta * 0.012;
-      group.current.rotation.x += (mouse.y * -0.08 - group.current.rotation.x) * 0.02;
-      group.current.rotation.y += (mouse.x * 0.08 * delta) || 0;
+      group.current.rotation.x += ((pointer?.y || 0) * -0.08 - group.current.rotation.x) * 0.02;
     }
   });
 
   return (
     <group ref={group}>
-      <points ref={points}>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-          <bufferAttribute attach="attributes-aSize" args={[sizes, 1]} />
-          <bufferAttribute attach="attributes-aPhase" args={[phases, 1]} />
-        </bufferGeometry>
-        <shaderMaterial
-          vertexShader={starVertexShader}
-          fragmentShader={starFragmentShader}
-          uniforms={uniforms}
+      <Points positions={positions} stride={3} frustumCulled={false}>
+        <PointMaterial
+          ref={material}
           transparent
+          color={color}
+          size={size}
+          sizeAttenuation
           depthWrite={false}
+          opacity={0.7}
           blending={THREE.AdditiveBlending}
         />
-      </points>
+      </Points>
     </group>
   );
 }
@@ -116,7 +80,7 @@ function ShootingStar() {
   });
 
   return (
-    <mesh ref={ref} visible={true}>
+    <mesh ref={ref}>
       <sphereGeometry args={[0.035, 8, 8]} />
       <meshBasicMaterial color="#e0e7ff" transparent opacity={0} />
     </mesh>
@@ -125,9 +89,11 @@ function ShootingStar() {
 
 function Scene() {
   const isSmallScreen = typeof window !== "undefined" && window.innerWidth < 640;
+  const base = isSmallScreen ? 500 : 1100;
   return (
     <>
-      <Starfield count={isSmallScreen ? 700 : 1600} />
+      <StarLayer count={base} size={0.045} color="#c7d2fe" speed={0.5} phase={0} />
+      <StarLayer count={Math.round(base * 0.4)} size={0.08} color="#a5b4fc" speed={0.35} phase={2} />
       <ShootingStar />
     </>
   );
