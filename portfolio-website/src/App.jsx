@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
+import { FiMenu, FiX, FiSun, FiMoon, FiCommand } from "react-icons/fi";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Education from "./components/Education";
@@ -9,6 +9,10 @@ import Publication from "./components/Publication";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import CustomCursor from "./components/CustomCursor";
+import CommandPalette from "./components/CommandPalette";
+import ChatWidget from "./components/ChatWidget";
+import AmbientMusic from "./components/AmbientMusic";
 
 const NAV_ITEMS = [
   { id: "about", label: "About" },
@@ -24,7 +28,20 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("about");
   const [progress, setProgress] = useState(0);
+  const [paletteOpen, setPaletteOpen] = useState(false);
   const observerRef = useRef(null);
+
+  // Global Cmd/Ctrl+K to open the command palette
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setPaletteOpen((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   // Read saved theme or system preference
   useEffect(() => {
@@ -115,6 +132,13 @@ export default function App() {
 
           <div className="flex items-center gap-2">
             <button
+              aria-label="Open command palette"
+              onClick={() => setPaletteOpen(true)}
+              className="hidden sm:flex items-center gap-1.5 h-10 px-3 rounded-xl border border-black/10 dark:border-white/10 hover:border-accent-500/50 text-gray-500 dark:text-gray-400 text-xs font-mono transition-colors active:scale-95"
+            >
+              <FiCommand size={13} />K
+            </button>
+            <button
               aria-label="Toggle theme"
               onClick={() => setDark((v) => !v)}
               className="w-10 h-10 flex items-center justify-center rounded-xl border border-black/10 dark:border-white/10 hover:border-accent-500/50 text-gray-700 dark:text-gray-200 transition-colors active:scale-95"
@@ -165,6 +189,16 @@ export default function App() {
       </main>
 
       <Footer />
+
+      <CustomCursor />
+      <CommandPalette
+        open={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
+        dark={dark}
+        setDark={setDark}
+      />
+      <ChatWidget />
+      <AmbientMusic />
     </div>
   );
 }

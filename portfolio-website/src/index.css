@@ -18,6 +18,13 @@ body {
   @apply bg-accent-500/40 text-white;
 }
 
+@media (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
