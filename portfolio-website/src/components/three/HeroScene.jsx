@@ -75,9 +75,12 @@ export default function HeroScene() {
       };
     }
 
-    function frame(t) {
-      if (!running) return;
-      raf = requestAnimationFrame(frame);
+    // `draw` never depends on requestAnimationFrame actually firing — it's
+    // called directly for a guaranteed first paint, and again on every rAF
+    // tick for animation. Some environments throttle/delay rAF (tab
+    // occlusion, low-power mode, background tabs); without this split the
+    // canvas could stay permanently blank until the first tick finally runs.
+    function draw(t) {
       const time = t / 1000;
 
       ctx.clearRect(0, 0, width, height);
@@ -173,17 +176,25 @@ export default function HeroScene() {
       }
     }
 
+    function frame(t) {
+      if (!running) return;
+      raf = requestAnimationFrame(frame);
+      draw(t);
+    }
+
     resize();
+    draw(performance.now()); // guaranteed first paint, independent of rAF
 
     if (prefersReducedMotion) {
-      // Draw a single static frame — no motion, still shows the universe.
-      frame(0);
       running = false;
     } else {
       raf = requestAnimationFrame(frame);
     }
 
-    const onResize = () => resize();
+    const onResize = () => {
+      resize();
+      draw(performance.now());
+    };
     const ro = new ResizeObserver(onResize);
     ro.observe(wrap);
 
@@ -198,9 +209,12 @@ export default function HeroScene() {
       if (document.hidden) {
         running = false;
         if (raf) cancelAnimationFrame(raf);
-      } else if (!prefersReducedMotion) {
-        running = true;
-        raf = requestAnimationFrame(frame);
+      } else {
+        draw(performance.now());
+        if (!prefersReducedMotion) {
+          running = true;
+          raf = requestAnimationFrame(frame);
+        }
       }
     };
 
