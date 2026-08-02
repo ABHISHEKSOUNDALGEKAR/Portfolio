@@ -152,3 +152,51 @@ body {
     animation: none;
   }
 }
+
+/* Hero background: individually twinkling stars (plain DOM elements, no
+   canvas — always painted by the browser's normal layout pipeline) */
+.hero-star {
+  position: absolute;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-star {
+    animation-name: hero-star-twinkle;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes hero-star-twinkle {
+  0%, 100% { opacity: 0.25; transform: translate(-50%, -50%) scale(0.75); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.25); }
+}
+
+.hero-shooting-star {
+  position: absolute;
+  width: 110px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(224, 231, 255, 0), rgba(224, 231, 255, 0.95));
+  border-radius: 999px;
+  opacity: 0;
+  transform: rotate(28deg) translateX(0);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-shooting-star {
+    animation-name: hero-shooting-star-move;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes hero-shooting-star-move {
+  0% { opacity: 0; transform: rotate(28deg) translateX(0); }
+  4% { opacity: 1; }
+  16% { opacity: 0; transform: rotate(28deg) translateX(280px); }
+  100% { opacity: 0; transform: rotate(28deg) translateX(280px); }
+}
