@@ -88,7 +88,7 @@ const TerminalCard = () => (
 const Hero = () => (
   <section
     id="home"
-    className="relative w-full min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-16 overflow-hidden bg-ink-950 text-white"
+    className="relative isolate w-full min-h-screen flex flex-col justify-center px-6 sm:px-10 lg:px-16 overflow-hidden bg-ink-950 text-white"
   >
     {/* 3D animated starfield background (lazy-loaded) */}
     <Suspense fallback={null}>
