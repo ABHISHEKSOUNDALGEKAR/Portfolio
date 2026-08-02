@@ -116,7 +116,7 @@ const Hero = () => (
       animate={{ opacity: 1 }}
       transition={{ delay: 0.2, duration: 0.8 }}
     >
-      PORTFOLIO — 2026
+      
     </motion.span>
 
     <div className="max-w-7xl w-full mx-auto grid lg:grid-cols-[minmax(0,1fr)_auto] items-center gap-10">
